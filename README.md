@@ -1,2 +1,2 @@
-# micro-services-demo
-Demo application to understand micro services architecture
+# microservices-demo
+Demo application to understand microservices architecture
