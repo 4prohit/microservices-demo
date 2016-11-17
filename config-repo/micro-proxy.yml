@@ -1,0 +1,44 @@
+message:  micro-proxy config message
+
+server:
+  port: ${PORT:8000}
+  
+security:
+  user:
+    password: ${SECURITY_USER_PASSWORD:password}
+
+management:
+  context-path: /admin
+  
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10 # Do not update in production
+    statusPageUrlPath: /admin/info
+    healthCheckUrlPath: /admin/health
+  client:
+    healthcheck:
+      enabled: true
+
+# to use edge-service as proxy service which forwards the requests to backend services comment below configuration
+zuul:
+  prefix: /restapi
+#  strip-prefix: false  # Uncomment to disable auto stripping of prefix (/restapi) before  the request is forwarded
+#  ignored-services: '*'  # Uncomment to disable auto-registering all services read from Eureka
+  routes:
+    users:
+      path: /my-users/**
+#      stripPrefix: false  # Uncomment to disable auto stripping of prefix (/my-users) before  the request is forwarded
+#      url: http://localhost:8001/users  # Uncomment to use direct end url of backend service
+      service-id: user-service
+
+#ribbon:
+#  eureka:
+#    enabled: false  # Uncomment to disable eureka discovery 
+
+#endpoints:
+#  restart:
+#    enabled: true
+#  shutdown:
+#    enabled: true
+#  health:
+#    sensitive: false   

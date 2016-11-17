@@ -1,0 +1,50 @@
+server:
+  port: ${PORT:8888}
+
+spring:
+  cloud:
+    config:
+      discovery:
+        enabled: true
+      server:
+        git:
+          uri: file:///C:/Users/rohitpat/git/microservices-demo
+          #uri: https://github.com/rohitpat/microservices-demo.git
+          searchPaths: config-repo
+          basedir: target/config-repo
+
+security:
+  user:
+    password: ${SECURITY_USER_PASSWORD:password}
+
+management:
+  context-path: /admin
+    
+eureka:
+  password: password
+  instance:
+    metadata-map:
+      user: user
+      password: password
+    leaseRenewalIntervalInSeconds: 10 # Do not update in production
+    statusPageUrlPath: /admin/info
+    healthCheckUrlPath: /admin/health
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.${PREFIX:}discovery-server.credentials.uri:http://user:${eureka.password:}@localhost:8761}/eureka/
+    healthcheck:
+      enabled: true
+      
+---
+
+spring:
+  profiles: cloud
+eureka:
+  password: password
+  instance:
+    hostname: ${vcap.application.uris[0]}
+    nonSecurePort: 80
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.${PREFIX:}discovery-server.credentials.uri:http://user:${eureka.password:}@${PREFIX:}discovery-servera.${application.domain:cfapps.io}}/eureka/
+      

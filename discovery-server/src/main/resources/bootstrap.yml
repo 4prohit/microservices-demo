@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: discovery-server
+  cloud:
+    config:
+      uri: ${vcap.services.${PREFIX:}config-server.credentials.uri:http://user:password@localhost:8888}

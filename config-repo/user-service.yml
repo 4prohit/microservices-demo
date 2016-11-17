@@ -1,1 +1,41 @@
-message:  out-jar-user-service.yml
+message:  user-service config message
+
+server:
+  port: ${PORT:8001}
+  
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+  datasource:
+    url: jdbc:mysql://localhost/user_service
+    username: root
+    password: root
+
+management:
+  context-path: /admin
+    
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10 # Do not update in production
+    statusPageUrlPath: /admin/info
+    healthCheckUrlPath: /admin/health
+  client:
+    healthcheck:
+      enabled: true
+      
+---
+
+spring:
+  profiles: cloud
+eureka:
+  password: password
+  instance:
+    hostname: ${vcap.application.uris[0]}
+    nonSecurePort: 80
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.${PREFIX:}discovery-server.credentials.uri:http://user:${eureka.password:}@${PREFIX:}discovery-server.${application.domain:cfapps.io}}/eureka/
+      

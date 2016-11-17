@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: user-service
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: ${CONFIG_SERVER_ID:config-server}
+
+eureka:
+  password: password
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.${PREFIX:}discovery-server.credentials.uri:http://user:${eureka.password:}@localhost:8761}/eureka/

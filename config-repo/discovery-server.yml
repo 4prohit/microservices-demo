@@ -1,1 +1,24 @@
-message:  out-jar-discovery-server.yml
+message:  discovery-server config message
+
+server:
+  port: ${PORT:8761}
+
+management:
+  context-path: /admin
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.${PREFIX:}discovery-server.credentials.uri:http://user:${eureka.password:}@${eureka.instance.hostname:}:${server.port:}}/eureka/
+    registerWithEureka: false
+    fetchRegistry: false
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+  
+security:
+  basic:
+    enabled: true
+  user:
+    password: ${SECURITY_USER_PASSWORD:password}
