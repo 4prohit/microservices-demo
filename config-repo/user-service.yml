@@ -4,6 +4,9 @@ server:
   port: ${PORT:8001}
   
 spring:
+  data:
+    rest:
+      base-path: /api
   jpa:
     show-sql: true
     hibernate:

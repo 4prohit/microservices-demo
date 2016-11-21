@@ -1,0 +1,30 @@
+message:  api-gateway config message
+
+server:
+  port: ${PORT:8003}
+#  context-path: /x-api
+  
+security:
+  user:
+    password: ${SECURITY_USER_PASSWORD:password}
+
+management:
+  context-path: /admin
+  
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10 # Do not update in production
+    statusPageUrlPath: /admin/info
+    healthCheckUrlPath: /admin/health
+  client:
+    healthcheck:
+      enabled: true
+
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false   
+    
