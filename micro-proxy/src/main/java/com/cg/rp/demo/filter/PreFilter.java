@@ -10,14 +10,14 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 @Component
 public class PreFilter extends ZuulFilter {
-	private static Logger log = LoggerFactory.getLogger(PreFilter.class);
+	private static Logger logger = LoggerFactory.getLogger(PreFilter.class);
 
 	@Override
 	public Object run() {
 		RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
-        log.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
+        logger.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
         return null;
 	}
 

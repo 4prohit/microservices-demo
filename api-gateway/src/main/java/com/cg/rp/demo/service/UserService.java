@@ -15,15 +15,15 @@ public interface UserService {
 	Resources<User> get();
 	
 	@RequestMapping(value = "/api/users/{userId}", method = RequestMethod.GET, produces = "application/json")
-	Resource<User> get(@PathVariable("userId") int userId);
+	Resource<User> get(@PathVariable("userId") Long userId);
 	
-	@RequestMapping(value = "/api/users/{userId}", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/api/users", method = RequestMethod.POST, produces = "application/json")
 	Resource<User> save(@RequestBody User user);
 	
-	@RequestMapping(value = "/api/users/{userId}", method = RequestMethod.POST, produces = "application/json")
-	Resource<User> update(@PathVariable("userId") int userId, @RequestBody User user);
+	@RequestMapping(value = "/api/users/{userId}", method = RequestMethod.PUT, produces = "application/json")
+	Resource<User> update(@PathVariable("userId") Long userId, @RequestBody User user);
 	
 	@RequestMapping(value = "/api/users/{userId}", method = RequestMethod.DELETE, produces = "application/json")
-	void delete(@PathVariable("userId") int userId);
+	void delete(@PathVariable("userId") Long userId);
 	
 }
