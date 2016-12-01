@@ -1,4 +1,4 @@
-message:  user-service config message updated
+message:  user-service config message
 
 server:
   port: ${PORT:8001}
